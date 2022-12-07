@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список всех пользователей сервиса</title>
+</head>
+    <body>
+
+        <div>
+            <div th:each="person: ${person_list}">
+               <p> <span th:text="'Логин: ' + ${person.getLogin()} + ' ID: ' + ${person.getId()} + ' Роль в системе ' + ${person.getRole}" ></span><a th:href="@{/admin/editUser/{id}(id=${person.getId()})}"> Редактировать </a>
+               </p>
+            </div>
+        </div>
+        <hr>
+
+
+
+
+    </body>
+</html>

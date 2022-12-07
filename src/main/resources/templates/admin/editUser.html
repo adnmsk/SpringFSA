@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование пользователя</title>
+</head>
+<body>
+<h3>Редактирование пользователя</h3>
+
+    <form th:method="POST" th:action="@{/admin/editUser/{id}(id=${editUser.getId()})}" th:object="${editUser}">
+
+    <p th:text="'Пользователь с логином : '+ ${editUser.getLogin()}"></p>
+    <input type="hidden"  th:field="*{login}" placeholder="Введите логин" name="username" id="login">
+    <br>
+
+    <label for="password">Введите новый пароль: </label>
+    <input type="password" th:field="*{password}" placeholder="Введите новый пароль" name="password" id="password">
+    <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+    <br>
+    <label for="role">Выберите роль: </label>
+    <select name="role" th:field="*{role}" id="role">
+         <option th:text="USER" th:value="ROLE_USER"></option>
+         <option th:text="ADMIN" th:value="ROLE_ADMIN"></option>
+    </select>
+        <br>
+    <input type="submit" value="Сохранить изменения">
+    </form>
+</body>
+</html>
