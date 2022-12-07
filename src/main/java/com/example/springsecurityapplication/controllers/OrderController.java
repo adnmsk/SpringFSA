@@ -25,14 +25,14 @@ public class OrderController {
     @GetMapping("/all")
     public String getAllOrders(Model model) {
         model.addAttribute("orders_list", orderService.getAllOrders());
-        return "redirect:order/orderManagement";
+        return "order/orderManagement";
     }
 
     @GetMapping("/findByNumber")
     public String getAllOrders(Model model, @RequestParam("lastNumber") String lastNumber) {
         List<Order> orderList = orderService.getByLastNumbers(lastNumber);
         model.addAttribute("orders_list", orderList);
-        return "redirect:order/orderManagement";
+        return "order/orderManagement";
     }
 
     @GetMapping("/editOrder")
