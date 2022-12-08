@@ -21,8 +21,9 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-
-    @GetMapping("/all")
+//Метод дает лист всех заказов для управления админом
+    //доступен по /orders/orderManagement
+    @GetMapping("/orderManagement")
     public String getAllOrders(Model model) {
         model.addAttribute("orders_list", orderService.getAllOrders());
         return "order/orderManagement";
