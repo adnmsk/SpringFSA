@@ -23,8 +23,15 @@ public class MainController {
     // Данный метод предназначен для отображении товаров без прохождения аутентификации и авторизации
     @GetMapping("")
     public String getAllProduct(Model model){
-        model.addAttribute("products", productService.getAllProduct());
+        model.addAttribute("search_product", productService.getAllProduct());
         return "product/product";
+    }
+
+    //Метод для вывода на страницу поиска и сортировки
+    @GetMapping("findProduct")
+    public String findAllProduct(Model model){
+        model.addAttribute("search_product", productService.getAllProduct());
+        return "product/findProduct";
     }
 
     @GetMapping("/info/{id}")
@@ -97,4 +104,6 @@ public class MainController {
         model.addAttribute("products", productService.getAllProduct());
         return "/product/product";
     }
+
+
 }

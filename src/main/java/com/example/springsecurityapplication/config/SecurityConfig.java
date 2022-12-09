@@ -67,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // С помощью permitAll указывакем что данные страницы по умолчанию доступны всем пользователям
                 .antMatchers("/login", "/auth/login", "/error", "/registration", "/auth/registration", "/product", "/product/info/{id}",
                         "/img" +
-                        "/**", "/product/search", "/api/**").permitAll()
+                        "/**", "/product/search", "/product/findProduct", "/api/**").permitAll()
                 // Указываем что все остальные страницы доступны пользователю с ролью user и admin
                 .anyRequest().hasAnyRole("USER", "ADMIN")
 //                // Указываем что для всех остальных страниц необходимо вызывать метод authenticated, который открываем форму аутентификации
