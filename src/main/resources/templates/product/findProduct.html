@@ -149,12 +149,11 @@
     </a>
     <a class="py-2 d-none d-md-inline-block" href="/product">Гаджет-стор</a>
     <a class="py-2 d-none d-md-inline-block" href="/user/orders">Заказы</a>
-    <a class="py-2 d-none d-md-inline-block" href="/user/cart">Корзина</a>
-    <a class="py-2 d-none d-md-inline-block" href="#">Войти</a>
+    <a class="py-2 d-none d-md-inline-block" href="/auth/login">Войти</a>
   </nav>
 </header>
 
-<main >
+<main>
 
 
   <!--  Блок поиска и выбора-->
@@ -182,16 +181,12 @@
         <input type="radio" id="descending_price" name="price" value="sorted_by_descending_price">
         <label for="descending_price">Отсортировать по убыванию цены</label>
         <p>Категория товаров: </p>
-        <input type="radio" id="furniture" name="category" value="furniture">
-        <label for="furniture">Мебель</label>
+        <input type="radio" id="furniture" name="category" value="1">
+        <label for="furniture">Видео</label>
         <br>
         <br>
-        <input type="radio" id="appliances" name="category" value="appliances">
-        <label for=appliances>Бытовая техника</label>
-        <br>
-        <br>
-        <input type="radio" id="clothes" name="category" value="clothes">
-        <label for="clothes">Одежка</label>
+        <input type="radio" id="appliances" name="category" value="2">
+        <label for=appliances>Аудио</label>
         <br>
         <br>
         <input type="submit" value="Найти">
@@ -200,115 +195,146 @@
   </div>
 
   <h3>Результаты поиска: </h3>
-  <div th:each="product : ${search_product}">
-<!--    <img th:src="'/img/' + ${product.imageList[0].getFileName()}" width="300px">-->
-<!--    <br>-->
-<!--    <br>-->
-<!--    <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>-->
-<!--    <p th:text="'Цена: ' + ${product.getPrice()}"></p>-->
-    <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
-      <div  class="text-bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-        <div class="my-3 py-3">
-          <h2 class="display-5"><a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a></h2>
-          <p class="lead">Всегда в наличии</p>
-          <p th:text="'Цена: ' + ${product.getPrice()}"></p>
-          <a class="btn btn-outline-secondary" th:href="@{/product/info/{id}(id=${product.getId()})}">Подробнее</a>
-        </div>
-        <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
-          <img style="margin-top:25px" th:src="'/img/' + ${product.imageList[0].getFileName()}" width="200px">
-        </div>
-      </div>
-  </div>
 
-  <h3>Доступные товары: </h3>
-  <!--Второй блок-->
-  <div th:each="product, iState : ${search_product}">
+  <table style="border-color: #2c3034; padding-left:20px; margin: 0 auto" >
 
-    <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
-      <div th:if="${iState.index==1}" class="text-bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-        <div class="my-3 py-3">
-          <h2 class="display-5"><a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a></h2>
-          <p class="lead">Всегда в наличии</p>
-          <p th:text="'Цена: ' + ${product.getPrice()}"></p>
-          <a class="btn btn-outline-secondary" th:href="@{/product/info/{id}(id=${product.getId()})}">Подробнее</a>
-        </div>
-        <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
-          <img style="margin-top:25px" th:src="'/img/' + ${product.imageList[0].getFileName()}" width="150px">
-        </div>
-      </div>
-      <div th:if="${iState.index==1}" class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-        <div class="my-3 p-3">
-          <h2 class="display-5"><a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a></h2>
-          <p class="lead">Отличный подарок</p>
-          <p th:text="'Цена: ' + ${product.getPrice()}"></p>
-          <a class="btn btn-outline-secondary" th:href="@{/product/info/{id}(id=${product.getId()})}">Подробнее</a>
-        </div>
-        <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
-          <img style="margin-top:25px" th:src="'/img/' + ${product.imageList[0].getFileName()}" width="150px">
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!--//Третий блок-->
-  <div th:each="product, iState : ${search_product}">
+    <tr>
+      <th>Изображение</th>
+      <th>Название</th>
+      <th>Описание</th>
+      <th>Цена</th>
+      <th>Склад</th>
+      <th>Продавец</th>
+      <th>Категория</th>
+      <th>Правка</th>
+      <th>Удалить</th>
 
-    <div th:if="${iState.index==2}" class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
-      <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-        <div class="my-3 p-3">
-          <h2 class="display-5"><a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a></h2>
-          <p class="lead">Выбор профессионалов</p>
-          <p th:text="'Цена: ' + ${product.getPrice()}"></p>
-          <a class="btn btn-outline-secondary" th:href="@{/product/info/{id}(id=${product.getId()})}">Подробнее</a>
-        </div>
-        <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
-          <img style="margin-top:25px" th:src="'/img/' + ${product.imageList[0].getFileName()}" width="150px">
-        </div>
-      </div>
-      <div th:if="${iState.index==2}" class="text-bg-primary me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-        <div class="my-3 py-3">
-          <h2 class="display-5"><a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a></h2>
-          <p class="lead">Лучший подарок</p>
-          <p th:text="'Цена: ' + ${product.getPrice()}"></p>
-          <a class="btn btn-outline-secondary" th:href="@{/product/info/{id}(id=${product.getId()})}">Подробнее</a>
-        </div>
-        <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
-          <img style="margin-top:25px" th:src="'/img/' + ${product.imageList[0].getFileName()}" width="150px">
-        </div>
-      </div>
-    </div>
-  </div>
+    </tr>
+    <tr th:each="product : ${search_product}">
+      <td><img th:src="'/img/' + ${product.imageList[0].getFileName()}" style=" max-width: 100px"></td>
+      <td th:text="${product.getTitle()}"></td>
+      <td><textarea style="width:300px; max-height: 300px" th:text="${product.getDescription()}"></textarea></td>
+      <td th:text="${product.getPrice()}"></td>
+      <td th:text="${product.getWarehouse()}"></td>
+      <td th:text="${product.getSeller()}"></td>
+      <td th:text="${product.getCategory().getName()}"></td>
+      <td><a th:href="@{/admin/product/edit/{id}(id=${product.getId()})}">Редактировать товар</a></td>
+      <td><a th:href="@{/admin/product/delete/{id}(id=${product.getId()})}">Удалить товар</a></td>
+    </tr>
+  </table>
 
-  <!--Циклическое раскрытие всего списка-->
-  <div th:each="product, iState : ${search_product}">
 
-    <div th:if="${iState.index>=3}" class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
-      <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-        <div class="my-3 p-3">
-          <h2 class="display-5"><a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a></h2>
-          <p class="lead">Всегда в наличии</p>
-          <p th:text="'Цена: ' + ${product.getPrice()}"></p>
-          <a class="btn btn-outline-secondary" th:href="@{/product/info/{id}(id=${product.getId()})}">Подробнее</a>
-          <p class="lead">Лучший подарок</p>
-        </div>
-        <div class="bg-body shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
-          <img style="margin-top:25px" th:src="'/img/' + ${product.imageList[0].getFileName()}" width="150px">
-        </div>
-      </div>
-      <div th:if="${iState.index==3}" class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-        <div class="my-3 py-3">
-          <h2 class="display-5"><a th:href="@{/product/info/{id}(id=${product.getId()}+1)}" th:text="${product.getTitle()}"></a></h2>
-          <p class="lead">Ударная скидка</p>
-          <p th:text="'Цена: ' + ${product.getPrice()}"></p>
-          <a class="btn btn-outline-secondary" th:href="@{/product/info/{id}(id=${product.getId()}+1)}">Подробнее</a>
+  <!--  <div th:each="product : ${search_product}">-->
+<!--&lt;!&ndash;    <img th:src="'/img/' + ${product.imageList[0].getFileName()}" width="300px">&ndash;&gt;-->
+<!--&lt;!&ndash;    <br>&ndash;&gt;-->
+<!--&lt;!&ndash;    <br>&ndash;&gt;-->
+<!--&lt;!&ndash;    <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>&ndash;&gt;-->
+<!--&lt;!&ndash;    <p th:text="'Цена: ' + ${product.getPrice()}"></p>&ndash;&gt;-->
+<!--    <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">-->
+<!--      <div  class="text-bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">-->
+<!--        <div class="my-3 py-3">-->
+<!--          <h2 class="display-5"><a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a></h2>-->
+<!--          <p class="lead">Всегда в наличии</p>-->
+<!--          <p th:text="'Цена: ' + ${product.getPrice()}"></p>-->
+<!--          <a class="btn btn-outline-secondary" th:href="@{/product/info/{id}(id=${product.getId()})}">Подробнее</a>-->
+<!--        </div>-->
+<!--        <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">-->
+<!--          <img style="margin-top:25px" th:src="'/img/' + ${product.imageList[0].getFileName()}" width="200px">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--  </div>-->
+<!--  </div>-->
 
-        </div>
-        <div class="bg-body shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
-          <img style="margin-top:25px" th:src="'/img/' + ${product.imageList[0].getFileName()}" width="150px">
-        </div>
-      </div>
-    </div>
-  </div>
+<!--  <h3>Доступные товары: </h3>-->
+<!--  &lt;!&ndash;Второй блок&ndash;&gt;-->
+<!--  <div th:each="product, iState : ${search_product}">-->
+
+<!--    <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">-->
+<!--      <div th:if="${iState.index==1}" class="text-bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">-->
+<!--        <div class="my-3 py-3">-->
+<!--          <h2 class="display-5"><a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a></h2>-->
+<!--          <p class="lead">Всегда в наличии</p>-->
+<!--          <p th:text="'Цена: ' + ${product.getPrice()}"></p>-->
+<!--          <a class="btn btn-outline-secondary" th:href="@{/product/info/{id}(id=${product.getId()})}">Подробнее</a>-->
+<!--        </div>-->
+<!--        <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">-->
+<!--          <img style="margin-top:25px" th:src="'/img/' + ${product.imageList[0].getFileName()}" width="150px">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div th:if="${iState.index==1}" class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">-->
+<!--        <div class="my-3 p-3">-->
+<!--          <h2 class="display-5"><a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a></h2>-->
+<!--          <p class="lead">Отличный подарок</p>-->
+<!--          <p th:text="'Цена: ' + ${product.getPrice()}"></p>-->
+<!--          <a class="btn btn-outline-secondary" th:href="@{/product/info/{id}(id=${product.getId()})}">Подробнее</a>-->
+<!--        </div>-->
+<!--        <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">-->
+<!--          <img style="margin-top:25px" th:src="'/img/' + ${product.imageList[0].getFileName()}" width="150px">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  &lt;!&ndash;//Третий блок&ndash;&gt;-->
+<!--  <div th:each="product, iState : ${search_product}">-->
+
+<!--    <div th:if="${iState.index==2}" class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">-->
+<!--      <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">-->
+<!--        <div class="my-3 p-3">-->
+<!--          <h2 class="display-5"><a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a></h2>-->
+<!--          <p class="lead">Выбор профессионалов</p>-->
+<!--          <p th:text="'Цена: ' + ${product.getPrice()}"></p>-->
+<!--          <a class="btn btn-outline-secondary" th:href="@{/product/info/{id}(id=${product.getId()})}">Подробнее</a>-->
+<!--        </div>-->
+<!--        <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">-->
+<!--          <img style="margin-top:25px" th:src="'/img/' + ${product.imageList[0].getFileName()}" width="150px">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div th:if="${iState.index==2}" class="text-bg-primary me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">-->
+<!--        <div class="my-3 py-3">-->
+<!--          <h2 class="display-5"><a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a></h2>-->
+<!--          <p class="lead">Лучший подарок</p>-->
+<!--          <p th:text="'Цена: ' + ${product.getPrice()}"></p>-->
+<!--          <a class="btn btn-outline-secondary" th:href="@{/product/info/{id}(id=${product.getId()})}">Подробнее</a>-->
+<!--        </div>-->
+<!--        <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">-->
+<!--          <img style="margin-top:25px" th:src="'/img/' + ${product.imageList[0].getFileName()}" width="150px">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  &lt;!&ndash;Циклическое раскрытие всего списка&ndash;&gt;-->
+<!--  <div th:each="product, iState : ${search_product}">-->
+
+<!--    <div th:if="${iState.index>=3}" class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">-->
+<!--      <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">-->
+<!--        <div class="my-3 p-3">-->
+<!--          <h2 class="display-5"><a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a></h2>-->
+<!--          <p class="lead">Всегда в наличии</p>-->
+<!--          <p th:text="'Цена: ' + ${product.getPrice()}"></p>-->
+<!--          <a class="btn btn-outline-secondary" th:href="@{/product/info/{id}(id=${product.getId()})}">Подробнее</a>-->
+<!--          <p class="lead">Лучший подарок</p>-->
+<!--        </div>-->
+<!--        <div class="bg-body shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">-->
+<!--          <img style="margin-top:25px" th:src="'/img/' + ${product.imageList[0].getFileName()}" width="150px">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div th:if="${iState.index==3}" class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">-->
+<!--        <div class="my-3 py-3">-->
+<!--          <h2 class="display-5"><a th:href="@{/product/info/{id}(id=${product.getId()}+1)}" th:text="${product.getTitle()}"></a></h2>-->
+<!--          <p class="lead">Ударная скидка</p>-->
+<!--          <p th:text="'Цена: ' + ${product.getPrice()}"></p>-->
+<!--          <a class="btn btn-outline-secondary" th:href="@{/product/info/{id}(id=${product.getId()}+1)}">Подробнее</a>-->
+
+<!--        </div>-->
+<!--        <div class="bg-body shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">-->
+<!--          <img style="margin-top:25px" th:src="'/img/' + ${product.imageList[0].getFileName()}" width="150px">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
 
   <!--  <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">-->
   <!--    <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">-->

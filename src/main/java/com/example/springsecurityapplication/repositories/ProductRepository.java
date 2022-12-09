@@ -14,7 +14,25 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     Optional<Product> findByTitle(String title);
     // Поиск по части наименования товара в не зависимости от регистра
-    List<Product> findByTitleContainingIgnoreCase(String name);
+    List<Product> findByTitleContainingIgnoreCaseOrderByTitleAsc(String name);
+
+    @Query(value = "SELECT * FROM product WHERE (lower(title) LIKE %?1%) and price >= ?2 and price <= ?3", nativeQuery = true)
+    List<Product> searchWithoutCategory(String title, Double from, Double to);
+
+    @Query(value = "SELECT * FROM product WHERE (lower(title) LIKE %?1%) and price >= ?2 and price <= ?3 order by price asc ", nativeQuery = true)
+    List<Product> searchWithoutCategoryAcsPrice(String title, Double from, Double to);
+
+    @Query(value = "SELECT * FROM product WHERE (lower(title) LIKE %?1%) and price >= ?2 and price <= ?3 order by price desc", nativeQuery = true)
+    List<Product> searchWithoutCategoryDescPrice(String title, Double from, Double to);
+
+    @Query(value = "SELECT * FROM product WHERE (lower(title) LIKE %?1%) and price >= ?2 and price <= ?3 and  category_id=?4", nativeQuery = true)
+    List<Product> searchWithCategory(String title, Double from, Double to, int category);
+
+    @Query(value = "SELECT * FROM product WHERE (lower(title) LIKE %?1%) and price >= ?2 and price <= ?3 and  category_id=?4 order by price asc", nativeQuery = true)
+    List<Product> searchWithCategoryAcsPrice(String title, Double from, Double to, int category);
+
+    @Query(value = "SELECT * FROM product WHERE (lower(title) LIKE %?1%) and price >= ?2 and price <= ?3 and  category_id=?4 order by price desc", nativeQuery = true)
+    List<Product> searchWithCategoryDescPrice(String title, Double from, Double to, int category);
 
     // Поиск по части наименования товара и фильтрация по диапазону цен
     @Query(value = "select * from product where ((lower(title) LIKE %?1%) or (lower(title) LIKE '?1%') or (lower(title) LIKE '%?1') and (price >= ?2 and price <= ?3))", nativeQuery = true)

@@ -19,7 +19,7 @@
 
 
 
-        <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
         <style>
             .bd-placeholder-img {
@@ -86,7 +86,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="d-block mx-auto" role="img" viewBox="0 0 24 24"><title>Магазин "Рифф"</title><circle cx="12" cy="12" r="10"/><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"/></svg>
         </a>
         <a class="py-2 d-none d-md-inline-block" href="/product">Гитарный магазин "Рифф"</a>
-        <a class="py-2 d-none d-md-inline-block" href="/order/orderManagement">Заказы</a>
+        <a class="py-2 d-none d-md-inline-block" href="/orders/orderManagement">Заказы</a>
         <a class="py-2 d-none d-md-inline-block" href="/admin">Управление товарами</a>
         <a class="py-2 d-none d-md-inline-block" href="/admin/userManagement">Управление пользователями</a>
         <!--        <a class="py-2 d-none d-md-inline-block" href="logout">Выход</a>-->
@@ -98,54 +98,74 @@
 </header>
 
 
-<body>
+<h3>Редактирование статуса заказа</h3>
 
-<!--<a href="/admin/userManagement">Управление пользователями</a>-->
-<!--<br>-->
-<!--<a href="/orders/orderManagement">Управление Заказами</a>-->
-<!--<form th:method="POST" th:action="@{/logout}">-->
-<!--    <input type="submit" value="Выйти из личного кабинета">-->
-<!--</form>-->
+<!--    <form th:method="POST" th:action="@{/admin/editUser/{id}(id=${editUser.getId()})}" th:object="${editUser}">-->
 
-<div style="text-align: center; font-size: 16px; font-weight: bold">
-<a href="/admin/product/add">Добавить товар</a>
-</div>
-<h3 style="margin-left: 30px">Каталог товаров в магазине: </h3>
-<hr>
-<style>table th, table td {border:solid; padding: 15px 20px;} border solid</style>
-<table style="border-color: #2c3034; padding-left:20px; margin-left: 15px">
+<!--    <p th:text="'Пользователь с логином : '+ ${editUser.getLogin()}"></p>-->
+<!--    <input type="hidden"  th:field="*{login}" placeholder="Введите логин" name="username" id="login">-->
+<!--    <br>-->
+
+<!--    <label for="password">Введите новый пароль: </label>-->
+<!--    <input type="password" th:field="*{password}" placeholder="Введите новый пароль" name="password" id="password">-->
+<!--    <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>-->
+<!--    <br>-->
+<!--    <label for="role">Выберите роль: </label>-->
+<!--    <select name="role" th:field="*{role}" id="role">-->
+<!--         <option th:text="USER" th:value="ROLE_USER"></option>-->
+<!--         <option th:text="ADMIN" th:value="ROLE_ADMIN"></option>-->
+<!--    </select>-->
+<!--        <br>-->
+<!--    <input type="submit" value="Сохранить изменения">-->
+<!--    </form>-->
+
+<form th:method="POST" th:action="@{/order/editOrder/{id}(id=${order.getId()})}" th:object="${order}">
+
+    <input type="hidden"  th:field="*{id}" placeholder="id" name="id" id="id">
+
+    <table style="border-color: #2c3034; padding-left:20px; margin-left: 15px">
+
+        <style>table th, table td {border:solid; padding: 15px 20px;} border solid</style>
+        <tr style="border:solid">
+            <th>Номер</th>
+            <th>Текущий статус</th>
+            <th>Товар</th>
+            <th>Цена</th>
+            <th>Заказчик</th>
+            <th>Сменить статус</th>
+
+        </tr>
+        <tr style="font-size: 16px">
+            <td ><p th:text="${order.getId()}"></p></td>
+            <td><p th:text="${order.getStatus()}"></p></td>
+            <td><p th:text="${order.getProduct().getTitle()}"></p></td>
+            <td><p th:text="${order.getPrice()}"></p></td>
+            <td><p th:text="${order.getPerson()}"></p></td>
+            <td>
+                <label for="status">Выберите актуальный статус: </label>
 
 
-    <tr>
-        <th>Изображение</th>
-        <th>Название</th>
-        <th>Описание</th>
-        <th>Цена</th>
-        <th>Склад</th>
-        <th>Продавец</th>
-        <th>Категория</th>
-        <th>Правка</th>
-        <th>Удалить</th>
+                    <select name="status" th:field="*{status}" id="status">
+                        <option th:each="status : ${T(com.example.springsecurityapplication.enumm.Status).values()}"
+                                th:value="${status}" th:text="${status}"></option>
+                    </select>
 
-       </tr>
-    <tr th:each="product : ${products}">
-        <td><img th:src="'/img/' + ${product.imageList[0].getFileName()}" style=" max-width: 100px"></td>
-        <td th:text="${product.getTitle()}"></td>
-        <td><textarea style="width:300px; max-height: 300px" th:text="${product.getDescription()}"></textarea></td>
-        <td th:text="${product.getPrice()}"></td>
-        <td th:text="${product.getWarehouse()}"></td>
-        <td th:text="${product.getSeller()}"></td>
-        <td th:text="${product.getCategory().getName()}"></td>
-        <td><a th:href="@{/admin/product/edit/{id}(id=${product.getId()})}">Редактировать товар</a></td>
-        <td><a th:href="@{/admin/product/delete/{id}(id=${product.getId()})}">Удалить товар</a></td>
-    </tr>
-</table>
-<div style="text-align: center; margin:10px 5px">
-    <a href="/admin/product/add">Добавить товар</a>
-</div>
+<!--                    <select name="status" th:field="*{status}" id="status">-->
+<!--                    <option th:text="Принят" th:value="1i"></option>-->
+<!--                    <option th:text="Оформлен" th:value="2i"></option>-->
+<!--                    <option th:text="Ожидает" th:value="3i"></option>-->
+<!--                    <option th:text="Получен" th:value="4i"></option>-->
+<!--                    <option th:text="Отменен" th:value="5i"></option>-->
+
+<!--                </select>-->
+            </td>
+
+        </tr>
+    </table>
 
 
+    <input style="font-size: 16px; margin:20px" type="submit" value="Сохранить изменения">
+</form>
 
-</div>
 </body>
 </html>

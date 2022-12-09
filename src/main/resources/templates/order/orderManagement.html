@@ -86,7 +86,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="d-block mx-auto" role="img" viewBox="0 0 24 24"><title>Магазин "Рифф"</title><circle cx="12" cy="12" r="10"/><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"/></svg>
             </a>
             <a class="py-2 d-none d-md-inline-block" href="/product">Гитарный магазин "Рифф"</a>
-            <a class="py-2 d-none d-md-inline-block" href="/orders/orderManagement">Заказы</a>
+            <a class="py-2 d-none d-md-inline-block" href="/order/orderManagement">Заказы</a>
             <a class="py-2 d-none d-md-inline-block" href="/admin">Управление товарами</a>
             <a class="py-2 d-none d-md-inline-block" href="/admin/userManagement">Управление пользователями</a>
             <!--        <a class="py-2 d-none d-md-inline-block" href="logout">Выход</a>-->
@@ -110,28 +110,19 @@
         <tr style="border:solid">
             <th>Номер</th>
             <th>Текущий статус</th>
-            <th>Сменить статус</th>
             <th>Товар</th>
             <th>Цена</th>
             <th>Заказчик</th>
+            <th>Сменить статус</th>
 
         </tr>
         <tr th:each="order: ${orders_list}" >
             <td th:utext="${order.getId()}">id</td>
             <td th:utext="${order.getStatus()}">Статус</td>
-            <td>
-
-<!--            <select name="status" th:field="*{order.status}" id="status">-->
-<!--                <option th:text="Принят" th:value="Принят"></option>-->
-<!--                <option th:text="Оформлен" th:value="Оформлен"></option>-->
-<!--                <option th:text="Ожидает" th:value="Ожидает"></option>-->
-<!--                <option th:text="Получен" th:value="Получен"></option>-->
-<!--                <option th:text="Отменен" th:value="Отменен"></option>-->
-<!--            </select>-->
-            </td>
             <td th:utext="${order.getProduct().getTitle()}">Товар</td>
             <td th:utext="${order.getPrice()}">Цена</td>
             <td th:utext="${order.getPerson().getLogin()}"></td>
+            <th><a th:href="@{/order/editOrder/{id}(id=${order.getId()})}">Редактировать</a></th>
         </tr>
     </table>
         <hr>

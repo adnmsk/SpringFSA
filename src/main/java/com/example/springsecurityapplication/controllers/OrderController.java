@@ -4,14 +4,12 @@ import com.example.springsecurityapplication.models.Order;
 import com.example.springsecurityapplication.services.OrderService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/orders")
+@RequestMapping("/order")
 public class OrderController {
 
     private final OrderService orderService;
@@ -21,7 +19,7 @@ public class OrderController {
     }
 
 //Метод дает лист всех заказов для управления админом
-    //доступен по /orders/orderManagement
+    //доступен по /order/orderManagement
     @GetMapping("/orderManagement")
     public String getAllOrders(Model model) {
         model.addAttribute("orders_list", orderService.getAllOrders());
@@ -35,8 +33,15 @@ public class OrderController {
         return "order/orderManagement";
     }
 
-    @GetMapping("/editOrder")
-    public String editOrder() {
-        return "";
+    @GetMapping("editOrder/{id}")
+    public String getOrder(@PathVariable("id") int id, Model model){
+        model.addAttribute("order", orderService.findById(id));
+        return "order/editOrder";
+    }
+
+    @PostMapping("/editOrder/{id}")
+    public String editOrder(@ModelAttribute("order") Order order) {
+        orderService.statusUpdate(order);
+        return "redirect:/order/editOrder";
     }
 }
