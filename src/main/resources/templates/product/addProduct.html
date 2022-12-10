@@ -1,53 +1,196 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!doctype html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"></html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.104.2">
+    <title>Список товаров</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/product/">
+
+
+
+
+
+    <link href="/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        .b-example-divider {
+            height: 3rem;
+            background-color: rgba(0, 0, 0, .1);
+            border: solid rgba(0, 0, 0, .15);
+            border-width: 1px 0;
+            box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+        }
+
+        .b-example-vr {
+            flex-shrink: 0;
+            width: 1.5rem;
+            height: 100vh;
+        }
+
+        .bi {
+            vertical-align: -.125em;
+            fill: currentColor;
+        }
+
+        .nav-scroller {
+            position: relative;
+            z-index: 2;
+            height: 2.75rem;
+            overflow-y: hidden;
+        }
+
+        .nav-scroller .nav {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 1rem;
+            margin-top: -1px;
+            overflow-x: auto;
+            text-align: center;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+    </style>
+
+
+    <!-- Custom styles for this template -->
+    <link href="/css/product.css" rel="stylesheet">
     <title>Добавление товара</title>
 </head>
 <body>
+
+<header class="site-header sticky-top py-1">
+    <nav class="container d-flex flex-column flex-md-row justify-content-between">
+        <a class="py-2" href="#" aria-label="Product">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="d-block mx-auto" role="img" viewBox="0 0 24 24"><title>Магазин "Рифф"</title><circle cx="12" cy="12" r="10"/><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"/></svg>
+        </a>
+        <a class="py-2 d-none d-md-inline-block" href="/product">Гитарный магазин "Рифф"</a>
+        <a class="py-2 d-none d-md-inline-block" href="/order/orderManagement">Заказы</a>
+        <a class="py-2 d-none d-md-inline-block" href="/admin">Управление товарами</a>
+        <a class="py-2 d-none d-md-inline-block" href="/admin/userManagement">Управление пользователями</a>
+        <!--        <a class="py-2 d-none d-md-inline-block" href="logout">Выход</a>-->
+        <form class="py-2 d-none d-md-inline-block" th:method="POST" th:action="@{/logout}">
+            <input type="submit" value="Выход">
+        </form>
+
+    </nav>
+</header>
+
+<body>
 <h3>Добавление товара</h3>
 <form th:method="POST" th:action="@{/admin/product/add}" th:object="${product}" enctype="multipart/form-data">
-    <label for="title">Введите наименование: </label>
-    <input type="text" th:field="*{title}" placeholder="Наименование" id="title">
-    <div style="color: red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
-    <br>
-    <br>
-    <label for="description">Введите описание: </label>
-    <textarea th:field="*{description}" placeholder="Описание" id="description"></textarea>
-    <div style="color: red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
-    <br>
-    <br>
-    <label for="price">Введите цену: </label>
-    <input type="number" th:field="*{price}" min="1" step="0.00" id="price">
-    <div style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
-    <br>
-    <br>
-    <label for="warehouse">Введите информацию о складе: </label>
-    <input type="text" th:field="*{warehouse}" placeholder="Склад" id="warehouse">
-    <div style="color: red" th:if="${#fields.hasErrors('warehouse')}" th:errors="*{warehouse}"></div>
-    <br>
-    <br>
-    <label for="category">Выберите категорию товара: </label>
-    <select name="category" th:field="*{category}" id="category">
-        <div th:each="element : ${category}">
-            <option th:text="${element.getName()}" th:value="${element.getId()}"></option>
-<!--            <option th:text="${element.getName()}" th:value="${element.getId()}"></optional>-->
-        </div>
-    </select>
-    <br>
-    <br>
-    <label for="seller">Введите данные о продавце: </label>
-    <textarea th:field="*{seller}" placeholder="Продавец" id="seller"></textarea>
-    <div style="color: red" th:if="${#fields.hasErrors('seller')}" th:errors="*{seller}"></div>
-    <br>
-    <br>
+
+    <div style="padding-left:30px; padding-top: 30px">
+        <style>table th, table td {border:solid; padding: 15px 20px;} border solid</style>
+        <table style="border-color: #2c3034; padding-left:20px; align-items: center">
+
+            <tr style="border:solid">
+                <th>Название</th>
+                <th>Описание</th>
+                <th>Цена</th>
+                <th>Склад</th>
+                <th>Категория</th>
+                <th>Продавец</th>
+
+            </tr>
+            <tr style="font-size: 16px">
+                <td > <input type="text" th:field="*{title}" placeholder="Наименование" id="title">
+                    <div style="color: red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+                </td>
+                <td>
+                    <textarea th:field="*{description}" placeholder="Добавьте описание" id="description"></textarea>
+                    <div style="color: red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+                </td>
+                <td><input type="number" th:field="*{price}" min="1" step="0.00" id="price">
+                    <div style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+                </td>
+                <td><input type="text" th:field="*{warehouse}" placeholder="Склад" id="warehouse">
+                    <div style="color: red" th:if="${#fields.hasErrors('warehouse')}" th:errors="*{warehouse}"></div>
+                </td>
+                <td> <select name="category" th:field="*{category}" id="category">
+                    <div th:each="element : ${category}">
+                        <option th:text="${element.getName()}" th:value="${element.getId()}"></option>
+                        <!--            <option th:text="${element.getName()}" th:value="${element.getId()}"></optional>-->
+                    </div>
+                     </select>
+                </td>
+                <td>
+
+                    <textarea th:field="*{seller}" placeholder="Добавьте продавца" id="seller"></textarea>
+                    <div style="color: red" th:if="${#fields.hasErrors('seller')}" th:errors="*{seller}"></div>
+                </td>
+
+            </tr>
+        </table>
+    </div>
+
+<!--    <div>-->
+<!--        <label for="title">Введите наименование: </label>-->
+<!--        <input type="text" th:field="*{title}" placeholder="Наименование" id="title">-->
+<!--        <div style="color: red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>-->
+<!--    <br>-->
+<!--    </div>-->
+<!--    <br>-->
+<!--    <div>-->
+<!--    <label for="description">Введите описание: </label>-->
+<!--    <textarea th:field="*{description}" placeholder="Описание" id="description"></textarea>-->
+<!--    <div style="color: red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>-->
+<!--    <br>-->
+<!--    </div>-->
+<!--    <br>-->
+<!--    <label for="price">Введите цену: </label>-->
+<!--    <input type="number" th:field="*{price}" min="1" step="0.00" id="price">-->
+<!--    <div style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>-->
+<!--    <br>-->
+<!--    <br>-->
+<!--    <label for="warehouse">Введите информацию о складе: </label>-->
+<!--    <input type="text" th:field="*{warehouse}" placeholder="Склад" id="warehouse">-->
+<!--    <div style="color: red" th:if="${#fields.hasErrors('warehouse')}" th:errors="*{warehouse}"></div>-->
+<!--    <br>-->
+<!--    <br>-->
+<!--    <label for="category">Выберите категорию товара: </label>-->
+<!--    <select name="category" th:field="*{category}" id="category">-->
+<!--        <div th:each="element : ${category}">-->
+<!--            <option th:text="${element.getName()}" th:value="${element.getId()}"></option>-->
+<!--&lt;!&ndash;            <option th:text="${element.getName()}" th:value="${element.getId()}"></optional>&ndash;&gt;-->
+<!--        </div>-->
+<!--    </select>-->
+<!--    <br>-->
+<!--    <br>-->
+<!--    <label for="seller">Введите данные о продавце: </label>-->
+<!--    <textarea th:field="*{seller}" placeholder="Продавец" id="seller"></textarea>-->
+<!--    <div style="color: red" th:if="${#fields.hasErrors('seller')}" th:errors="*{seller}"></div>-->
+<!--    <br>-->
+<!--    <br>-->
     <p style="color: red">Вы можете добавить до 5 фотографий. Первая фотография не может быть пустой</p>
-    <input type="file" name="file_one">
-    <input type="file" name="file_two">
-    <input type="file" name="file_three">
-    <input type="file" name="file_four">
-    <input type="file" name="file_five">
-    <input type="submit" value="Добавить">
+    <input type="file" name="file1">
+    <input type="file" name="file2">
+    <input type="file" name="file3">
+    <input type="file" name="file4">
+    <input type="file" name="file5">
+
+
+        <br>
+        <br>
+    <input type="submit" value="Добавить товар">
 </form>
 </body>
 </html>

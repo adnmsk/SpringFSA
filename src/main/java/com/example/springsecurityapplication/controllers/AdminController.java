@@ -77,14 +77,19 @@ public class AdminController {
 
     // Метод по добавлению объекта с формы в таблицу product
     @PostMapping("/product/add")
-    public String addProduct(@ModelAttribute("product") @Valid Product product, BindingResult bindingResult, @RequestParam("file_one") MultipartFile file_one, @RequestParam("file_two") MultipartFile file_two, @RequestParam("file_three") MultipartFile file_three, @RequestParam("file_four") MultipartFile file_four, @RequestParam("file_five") MultipartFile file_five) throws IOException {
+    public String addProduct(@ModelAttribute("product") @Valid Product product, BindingResult bindingResult,
+                             @RequestParam("file1") MultipartFile file1,
+                             @RequestParam("file2") MultipartFile file2,
+                             @RequestParam("file3") MultipartFile file3,
+                             @RequestParam("file4") MultipartFile file4,
+                             @RequestParam("file5") MultipartFile file5) throws IOException {
 
         productValidator.validate(product, bindingResult);
         if(bindingResult.hasErrors()){
             return "product/addProduct";
         }
         // Проверка на пустоту файла
-        if(file_one != null){
+        if(file1 != null){
             // Дирректория по сохранению файла
             File uploadDir = new File(uploadPath);
             // Если данной дирректории по пути не сущетсвует
@@ -96,9 +101,9 @@ public class AdminController {
             // UUID представляет неищменный универсальный уникальный идентификатор
             String uuidFile = UUID.randomUUID().toString();
             // file_one.getOriginalFilename() - наименование файла с формы
-            String resultFileName = uuidFile + "." + file_one.getOriginalFilename();
+            String resultFileName = uuidFile + "." + file1.getOriginalFilename();
             // Загружаем файл по указаннопу пути
-            file_one.transferTo(new File(uploadPath + "/" + resultFileName));
+            file1.transferTo(new File(uploadPath + "/" + resultFileName));
             Image image = new Image();
             image.setProduct(product);
             image.setFileName(resultFileName);
@@ -106,7 +111,7 @@ public class AdminController {
         }
 
         // Проверка на пустоту файла
-        if(file_two != null){
+        if(file2 != null){
             // Дирректория по сохранению файла
             File uploadDir = new File(uploadPath);
             // Если данной дирректории по пути не сущетсвует
@@ -118,9 +123,9 @@ public class AdminController {
             // UUID представляет неищменный универсальный уникальный идентификатор
             String uuidFile = UUID.randomUUID().toString();
             // file_one.getOriginalFilename() - наименование файла с формы
-            String resultFileName = uuidFile + "." + file_two.getOriginalFilename();
+            String resultFileName = uuidFile + "." + file2.getOriginalFilename();
             // Загружаем файл по указаннопу пути
-            file_two.transferTo(new File(uploadPath + "/" + resultFileName));
+            file2.transferTo(new File(uploadPath + "/" + resultFileName));
             Image image = new Image();
             image.setProduct(product);
             image.setFileName(resultFileName);
@@ -128,7 +133,7 @@ public class AdminController {
         }
 
         // Проверка на пустоту файла
-        if(file_three != null){
+        if(file3 != null){
             // Дирректория по сохранению файла
             File uploadDir = new File(uploadPath);
             // Если данной дирректории по пути не сущетсвует
@@ -140,9 +145,9 @@ public class AdminController {
             // UUID представляет неищменный универсальный уникальный идентификатор
             String uuidFile = UUID.randomUUID().toString();
             // file_one.getOriginalFilename() - наименование файла с формы
-            String resultFileName = uuidFile + "." + file_three.getOriginalFilename();
+            String resultFileName = uuidFile + "." + file3.getOriginalFilename();
             // Загружаем файл по указаннопу пути
-            file_three.transferTo(new File(uploadPath + "/" + resultFileName));
+            file3.transferTo(new File(uploadPath + "/" + resultFileName));
             Image image = new Image();
             image.setProduct(product);
             image.setFileName(resultFileName);
@@ -150,7 +155,7 @@ public class AdminController {
         }
 
         // Проверка на пустоту файла
-        if(file_four != null){
+        if(file4 != null){
             // Дирректория по сохранению файла
             File uploadDir = new File(uploadPath);
             // Если данной дирректории по пути не сущетсвует
@@ -162,9 +167,9 @@ public class AdminController {
             // UUID представляет неищменный универсальный уникальный идентификатор
             String uuidFile = UUID.randomUUID().toString();
             // file_one.getOriginalFilename() - наименование файла с формы
-            String resultFileName = uuidFile + "." + file_four.getOriginalFilename();
+            String resultFileName = uuidFile + "." + file4.getOriginalFilename();
             // Загружаем файл по указаннопу пути
-            file_four.transferTo(new File(uploadPath + "/" + resultFileName));
+            file4.transferTo(new File(uploadPath + "/" + resultFileName));
             Image image = new Image();
             image.setProduct(product);
             image.setFileName(resultFileName);
@@ -172,7 +177,7 @@ public class AdminController {
         }
 
         // Проверка на пустоту файла
-        if(file_five != null){
+        if(file5 != null){
             // Дирректория по сохранению файла
             File uploadDir = new File(uploadPath);
             // Если данной дирректории по пути не сущетсвует
@@ -184,9 +189,9 @@ public class AdminController {
             // UUID представляет неищменный универсальный уникальный идентификатор
             String uuidFile = UUID.randomUUID().toString();
             // file_one.getOriginalFilename() - наименование файла с формы
-            String resultFileName = uuidFile + "." + file_five.getOriginalFilename();
+            String resultFileName = uuidFile + "." + file5.getOriginalFilename();
             // Загружаем файл по указаннопу пути
-            file_five.transferTo(new File(uploadPath + "/" + resultFileName));
+            file5.transferTo(new File(uploadPath + "/" + resultFileName));
             Image image = new Image();
             image.setProduct(product);
             image.setFileName(resultFileName);
@@ -213,7 +218,12 @@ public class AdminController {
     }
 
     @PostMapping("/product/edit/{id}")
-    public String editProduct(@ModelAttribute("editProduct") Product product, @PathVariable("id") int id){
+    public String editProduct(@ModelAttribute("editProduct") Product product, @PathVariable("id") int id,
+                              @PathVariable("file1") MultipartFile file1,
+                              @PathVariable("file2") MultipartFile file2,
+                              @PathVariable("file3") MultipartFile file3,
+                              @PathVariable("file4") MultipartFile file4,
+                              @PathVariable("file5") MultipartFile file5){
         productService.updateProduct(id, product);
         return "redirect:/admin";
     }
