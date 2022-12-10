@@ -1,0 +1,262 @@
+<!-- <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список товаров: </title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/product/search}">
+<fieldset>
+    <legend>Выберите параметры для сортировки, поиска, фильтрации</legend>
+    <br>
+    <label for="search">Поиск по наименованию</label>
+    <input type="search" name="search"  th:value="*{value_search}" id="search">
+    <br>
+    <p>Цена, ₽</p>
+    <label for="ot">От</label>
+    <input type="text" name="ot"  th:value="*{value_price_ot}" id="ot">
+    <label for="do">До</label>
+    <input type="text" name="do"  th:value="*{value_price_do}" id="do">
+    <br>
+    <br>
+    <input type="radio" id="ascending_price" name="price" value="sorted_by_ascending_price">
+    <label for="ascending_price">Отсортировать по возрастанию цены</label>
+    <br>
+    <br>
+    <input type="radio" id="descending_price" name="price" value="sorted_by_descending_price">
+    <label for="descending_price">Отсортировать по убыванию цены</label>
+    <p>Категория товаров: </p>
+    <input type="radio" id="furniture" name="category" value="furniture">
+    <label for="furniture">Мебель</label>
+    <br>
+    <br>
+    <input type="radio" id="appliances" name="category" value="appliances">
+    <label for=appliances>Бытовая техника</label>
+    <br>
+    <br>
+    <input type="radio" id="clothes" name="category" value="clothes">
+    <label for="clothes">Одежка</label>
+    <br>
+    <br>
+    <input type="submit" value="Найти">
+</fieldset>
+</form>
+<h3>Результат: </h3>
+<div th:each="product : ${search_product}">
+    <img th:src="'/img/' + ${product.imageList[0].getFileName()}" width="300px">
+    <br>
+    <br>
+    <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
+    <p th:text="'Цена: ' + ${product.getPrice()}"></p>
+</div>
+<hr>
+<h3>Доступные товары: </h3>
+<div th:each="product : ${products}">
+    <img th:src="'/img/' + ${product.imageList[0].getFileName()}" width="300px">
+    <br>
+    <br>
+    <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}" id="title"></a>
+    <p th:text="'Цена: ' + ${product.getPrice()}"></p>
+</div>
+</body>
+</html> -->
+
+
+
+
+<!doctype html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"></html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.104.2">
+  <title>Список товаров</title>
+
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/product/">
+
+
+
+
+
+  <link href="/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+
+    .b-example-divider {
+      height: 3rem;
+      background-color: rgba(0, 0, 0, .1);
+      border: solid rgba(0, 0, 0, .15);
+      border-width: 1px 0;
+      box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+    }
+
+    .b-example-vr {
+      flex-shrink: 0;
+      width: 1.5rem;
+      height: 100vh;
+    }
+
+    .bi {
+      vertical-align: -.125em;
+      fill: currentColor;
+    }
+
+    .nav-scroller {
+      position: relative;
+      z-index: 2;
+      height: 2.75rem;
+      overflow-y: hidden;
+    }
+
+    .nav-scroller .nav {
+      display: flex;
+      flex-wrap: nowrap;
+      padding-bottom: 1rem;
+      margin-top: -1px;
+      overflow-x: auto;
+      text-align: center;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+  </style>
+
+
+  <!-- Custom styles for this template -->
+  <link href="/css/product.css" rel="stylesheet">
+</head>
+<body>
+
+<header class="site-header sticky-top py-1">
+  <nav class="container d-flex flex-column flex-md-row justify-content-between">
+    <a class="py-2" href="/product" aria-label="Product">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="d-block mx-auto" role="img" viewBox="0 0 24 24"><title>Магазин "Рифф"</title><circle cx="12" cy="12" r="10"/><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"/></svg>
+    </a>
+    <a class="py-2 d-none d-md-inline-block" href="/product">Гаджет-стор</a>
+    <a class="py-2 d-none d-md-inline-block" href="/user/cart">Корзина</a>
+    <a class="py-2 d-none d-md-inline-block" href="/orders">Мои заказы</a>
+    <a class="py-2 d-none d-md-inline-block" href="/logout">Выход</a>
+  </nav>
+</header>
+
+<main>
+
+
+  <!--  Блок поиска и выбора-->
+  <div  class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+    <form th:method="POST" th:action="@{/user/search}">
+      <fieldset>
+        <legend>Выберите параметры для сортировки, поиска, фильтрации</legend>
+        <br>
+        <label for="search">Поиск по наименованию</label>
+        <div>
+          <input type="search" name="search"  th:value="*{value_search}" id="search">
+        </div>
+        <br>
+        <p>Цена, ₽</p>
+        <label for="ot">От</label>
+        <input type="text" name="ot"  th:value="*{value_price_ot}" id="ot">
+        <label for="do">До</label>
+        <input type="text" name="do"  th:value="*{value_price_do}" id="do">
+        <br>
+        <br>
+        <input type="radio" id="ascending_price" name="price" value="sorted_by_ascending_price">
+        <label for="ascending_price">Отсортировать по возрастанию цены</label>
+        <br>
+        <br>
+        <input type="radio" id="descending_price" name="price" value="sorted_by_descending_price">
+        <label for="descending_price">Отсортировать по убыванию цены</label>
+        <p>Категория товаров: </p>
+        <input type="radio" id="furniture" name="category" value="1">
+        <label for="furniture">Цифровая техника</label>
+        <br>
+        <br>
+        <input type="radio" id="appliances" name="category" value="2">
+        <label for=appliances>Аудио техника</label>
+        <br>
+        <br>
+        <input type="radio" id="aсс" name="category" value="3">
+        <label for=appliances>Аксессуары</label>
+        <br>
+        <br>
+        <input type="submit" value="Найти">
+      </fieldset>
+    </form>
+  </div>
+
+  <h3>Результаты поиска: </h3>
+  <style>table th, table td {border:solid; padding: 5px 5px;} border solid</style>
+  <table style="border-color: #2c3034; padding-left:20px; margin: 0 auto; align-items: center">
+
+
+
+    <tr>
+      <th>Изображение</th>
+      <th>Название</th>
+      <th>Описание</th>
+      <th>Цена</th>
+      <th>Склад</th>
+      <th>Продавец</th>
+      <th>Категория</th>
+      <th>Покупаем?</th>
+<!--      <th>Правка</th>-->
+<!--      <th>Удалить</th>-->
+
+    </tr>
+    <tr th:each="product : ${search_product}">
+      <td><img th:src="'/img/' + ${product.imageList[0].getFileName()}" style=" max-width: 100px"></td>
+      <td th:text="${product.getTitle()}"></td>
+      <td><textarea style="width:230px; max-height: 300px" th:text="${product.getDescription()}"></textarea></td>
+      <td th:text="${product.getPrice()}"></td>
+      <td th:text="${product.getWarehouse()}"></td>
+      <td th:text="${product.getSeller()}"></td>
+      <td th:text="${product.getCategory().getName()}"></td>
+      <td><a class="btn btn-outline-secondary" th:href="@{/cart/add/{id}(id=${product.getId()})}">Положить в корзину</a>
+      </td>
+<!--      <td><a th:href="@{/admin/product/edit/{id}(id=${product.getId()})}">Редактировать товар</a></td>-->
+<!--      <td><a th:href="@{/admin/product/delete/{id}(id=${product.getId()})}">Удалить товар</a></td>-->
+    </tr>
+  </table>
+
+</main>
+
+<footer class="container py-5">
+  <div class="row">
+    <div class="col-12 col-md">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="d-block mb-2" role="img" viewBox="0 0 24 24"><title>Product</title><circle cx="12" cy="12" r="10"/><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"/></svg>
+      <small class="d-block mb-3 text-muted">&copy; 2017–2022</small>
+    </div>
+
+    <div class="col-6 col-md">
+      <h5>About</h5>
+      <ul class="list-unstyled text-small">
+        <li><a class="link-secondary" href="#">Команда</a></li>
+        <li><a class="link-secondary" href="#">Адреса магазинов</a></li>
+        <li><a class="link-secondary" href="#">Условия</a></li>
+        <li><a class="link-secondary" href="#">О доставке</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+
+<script src="/assets/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>

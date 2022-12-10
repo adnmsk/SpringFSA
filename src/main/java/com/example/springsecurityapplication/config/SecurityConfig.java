@@ -61,7 +61,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // Указываем что все страницы должны быть защищены аутентификации
                 .authorizeRequests()
                 // Указываем что /admin доступен пользователю с ролью администратора
-                .antMatchers("/admin", "/admin/userManagement").hasAnyRole("ADMIN")
+                .antMatchers("/admin", "/admin/userManagement", "/order/orderManagement","/order/editOrder").hasAnyRole(
+                        "ADMIN")
+                .antMatchers("/index", "/user/cart", "/user/findProduct").hasAnyRole(
+                        "USER")
 //                .antMatchers("/user").hasAnyRole("USER")
                 // Указываем что не аутентифицированные пользователи могут заходить на страницу с формой аутентификации и на объект ошибки
                 // С помощью permitAll указывакем что данные страницы по умолчанию доступны всем пользователям

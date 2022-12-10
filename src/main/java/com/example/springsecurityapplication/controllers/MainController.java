@@ -147,7 +147,7 @@ public class MainController {
         model.addAttribute("value_price_ot", ot);
         model.addAttribute("value_price_do", Do);
         model.addAttribute("search_product", searchList);
-        return "/product/findProduct";
+        return "product/findProduct";
     }
 
 

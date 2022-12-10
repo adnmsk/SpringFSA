@@ -14,6 +14,7 @@
     <p th:text="'Цена: ' + ${order.getPrice()}"></p>
     <p th:text="'Дата заказа: ' + ${#temporals.format(order.getDateTime(), 'dd-MMM-yyyy')}"></p>
     <p th:text="'Статус: ' + ${order.getStatus()}"></p>
+    <p th:text="'Статус: ' + ${order.getPerson().getLogin()}"></p>
     <hr>
 </div>
 </body>
