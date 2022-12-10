@@ -137,21 +137,11 @@
             <td th:text=" ${order.getProduct().getTitle()}">Название</td>
             <td th:utext="${order.getPrice()}">Цена</td>
             <td th:utext="${order.product.getSeller()}"></td>
-<!--            <th><a th:href="@{/order/editOrder/{id}(id=${order.getId()})}">Редактировать</a></th>-->
+
         </tr>
     </table>
     <hr>
-<!--<div th:each="order : ${orders}">-->
-<!--    <h3 th:text="'Заказ № ' + ${order.getNumber()}"></h3>-->
-<!--    <img th:src="'/img/' + ${order.getProduct().imageList[0].getFileName()}" width="300px">-->
-<!--    <p th:text="'Наименование: ' + ${order.getProduct().getTitle()}"></p>-->
-<!--    <p th:text="'Количество: ' + ${order.getCount()}"></p>-->
-<!--    <p th:text="'Цена: ' + ${order.getPrice()}"></p>-->
-<!--    <p th:text="'Дата заказа: ' + ${#temporals.format(order.getDateTime(), 'dd-MMM-yyyy')}"></p>-->
-<!--    <p th:text="'Статус: ' + ${order.getStatus()}"></p>-->
-<!--    <p th:text="'Статус: ' + ${order.getPerson().getLogin()}"></p>-->
-<!--    <hr>-->
-<!--</div>-->
+
 </div>
 </body>
 </html>

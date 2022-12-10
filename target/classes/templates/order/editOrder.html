@@ -19,7 +19,7 @@
 
 
 
-        <link href="../../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
         <style>
             .bd-placeholder-img {
@@ -85,11 +85,11 @@
         <a class="py-2" href="#" aria-label="Product">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="d-block mx-auto" role="img" viewBox="0 0 24 24"><title>Магазин "Рифф"</title><circle cx="12" cy="12" r="10"/><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"/></svg>
         </a>
-        <a class="py-2 d-none d-md-inline-block" href="/product">Гитарный магазин "Рифф"</a>
+        <a class="py-2 d-none d-md-inline-block" href="/index">Гаджет-стор</a>
         <a class="py-2 d-none d-md-inline-block" href="/orders/orderManagement">Заказы</a>
         <a class="py-2 d-none d-md-inline-block" href="/admin">Управление товарами</a>
         <a class="py-2 d-none d-md-inline-block" href="/admin/userManagement">Управление пользователями</a>
-        <!--        <a class="py-2 d-none d-md-inline-block" href="logout">Выход</a>-->
+
         <form class="py-2 d-none d-md-inline-block" th:method="POST" th:action="@{/logout}">
             <input type="submit" value="Выход">
         </form>
@@ -100,24 +100,7 @@
 
 <h3>Редактирование статуса заказа</h3>
 
-<!--    <form th:method="POST" th:action="@{/admin/editUser/{id}(id=${editUser.getId()})}" th:object="${editUser}">-->
 
-<!--    <p th:text="'Пользователь с логином : '+ ${editUser.getLogin()}"></p>-->
-<!--    <input type="hidden"  th:field="*{login}" placeholder="Введите логин" name="username" id="login">-->
-<!--    <br>-->
-
-<!--    <label for="password">Введите новый пароль: </label>-->
-<!--    <input type="password" th:field="*{password}" placeholder="Введите новый пароль" name="password" id="password">-->
-<!--    <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>-->
-<!--    <br>-->
-<!--    <label for="role">Выберите роль: </label>-->
-<!--    <select name="role" th:field="*{role}" id="role">-->
-<!--         <option th:text="USER" th:value="ROLE_USER"></option>-->
-<!--         <option th:text="ADMIN" th:value="ROLE_ADMIN"></option>-->
-<!--    </select>-->
-<!--        <br>-->
-<!--    <input type="submit" value="Сохранить изменения">-->
-<!--    </form>-->
 
 <form th:method="POST" th:action="@{/order/editOrder/{id}(id=${order.getId()})}" th:object="${order}">
 
@@ -156,14 +139,7 @@
                                 th:value="${status}" th:text="${status}"></option>
                     </select>
 
-<!--                    <select name="status" th:field="*{status}" id="status">-->
-<!--                    <option th:text="Принят" th:value="1i"></option>-->
-<!--                    <option th:text="Оформлен" th:value="2i"></option>-->
-<!--                    <option th:text="Ожидает" th:value="3i"></option>-->
-<!--                    <option th:text="Получен" th:value="4i"></option>-->
-<!--                    <option th:text="Отменен" th:value="5i"></option>-->
 
-<!--                </select>-->
             </td>
 
         </tr>
