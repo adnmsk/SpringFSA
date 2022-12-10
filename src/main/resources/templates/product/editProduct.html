@@ -1,20 +1,15 @@
 <!doctype html>
 
-<html lang="en" xmlns:th="http://www.thymeleaf.org"></html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.104.2">
-    <title>Список товаров</title>
+    <title>Редактирование товара</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/product/">
-
-
-
-
-
     <link href="/assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -70,10 +65,8 @@
         }
     </style>
 
-
     <!-- Custom styles for this template -->
     <link href="/css/product.css" rel="stylesheet">
-    <title>Редактирование товара</title>
 </head>
 <body>
 
@@ -94,19 +87,14 @@
     </nav>
 </header>
 
-
-<body>
-
-
-
-
-
-
 <h3>Редактирование товара</h3>
-
-
-<form th:method="POST" th:action="@{/admin/product/edit/{id}(id=${editProduct.getId()})}" th:object="${editProduct}">
+<form th:method="POST" th:action="@{/admin/product/edit}" th:object="${editProduct}" enctype="multipart/form-data">
     <input type="hidden"  th:field="*{id}" name="id" id="id">
+    <input type="hidden"  th:field="*{imageList[0]}" name="img0" id="img0">
+    <input type="hidden"  th:field="*{imageList[1]}" name="img1" id="img1">
+    <input type="hidden"  th:field="*{imageList[2]}" name="img2" id="img2">
+    <input type="hidden"  th:field="*{imageList[3]}" name="img3" id="img3">
+    <input type="hidden"  th:field="*{imageList[4]}" name="img4" id="img4">
 
     <div style="padding-left:30px; padding-top: 30px">
         <style>table th, table td {border:solid; padding: 15px 20px;} border solid</style>
@@ -138,7 +126,6 @@
                 <td> <select name="category" th:field="*{category}" id="category">
                     <div th:each="element : ${category}">
                         <option th:text="${element.getName()}" th:value="${element.getId()}"></option>
-                        <!--            <option th:text="${element.getName()}" th:value="${element.getId()}"></optional>-->
                     </div>
                 </select>
                 </td>
@@ -152,30 +139,18 @@
         </table>
     </div>
 
-    <br>
-    <br>
-    <p style="color: red">Вы можете добавить до 5 фотографий. Первая фотография не может быть пустой</p>
-<br>
 
-    <input style="margin: 20px 20px 20px 20px" type="submit" value="Сохранить правки">
-    <div style="clear:both"></div>
-    </div>
-    <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden" style="width: 47%; float: left; margin-bottom: 10px;" th:each="img: ${editProduct.getImageList()}">
+    <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden" style="width: 47%; float: left; margin-bottom: 10px; height: 250px;"
+         th:each="img, iter: ${editProduct.getImageList()}">
         <div class="my-3 p-3">
-        <img   th:src="'/img/' + ${img.getFileName()}" width="100px">
-<!--        <input type="file" name="file_one">-->
-<!--        <input type="file" th:name="${'file'+ iState.index}">-->
-
-        <input type="file" placeholder="" th:name="${img.getFileName()}">
-    </div>
+            <img   th:src="'/img/' + ${img.getFileName()}" width="100px">
+            <input type="file" th:name = "${'file' + (iter.index + 1)}">
+        </div>
     </div>
     <div style="clear:both"></div>
 
-<!--    <br>-->
-<!--    <br>-->
-<!--    <input type="submit" value="Сохранить правки">-->
+    <br>
+    <input type="submit" value="Сохранить правки">
 </form>
-
-
 </body>
 </html>

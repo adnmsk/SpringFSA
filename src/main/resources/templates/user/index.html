@@ -123,15 +123,18 @@
     <div th:each="product, iState : ${products}">
         <div th:if="${iState.index != 0}" class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden" style="width: 47%; float: left; margin-bottom: 10px;">
             <div class="my-3 p-3">
-                <h2 class="display-5"><a th:href="@{/user/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a></h2>
+                <h2 style="margin-top:-55px" class="display-5"><a th:href="@{/user/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a></h2>
                 <p class="lead">Отличный подарок</p>
                 <p th:text="'Цена: ' + ${product.getPrice()}"></p>
-                <a class="btn btn-outline-secondary" th:href="@{/user/info/{id}(id=${product.getId()})}">Подробнее</a>
+
             </div>
-            <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
-                <img style="margin-top:25px" th:src="'/img/' + ${product.imageList[0].getFileName()}" width="150px">
-                <a class="btn btn-outline-secondary" th:href="@{/cart/add/{id}(id=${product.getId()})}">Положить в корзину</a>
+            <div class="bg-light shadow-sm mx-auto" style="margin-top:-100px; width: 50%; height: 360px; border-radius: 21px 21px 0 0;">
+                <img style="margin-top:60px" th:src="'/img/' + ${product.imageList[0].getFileName()}" width="100px">
+
             </div>
+            <br>
+            <a class="btn btn-outline-secondary"  th:href="@{/cart/add/{id}(id=${product.getId()})}">Положить в корзину</a>
+            <a class="btn btn-outline-secondary" th:href="@{/user/info/{id}(id=${product.getId()})}">Подробнее</a>
         </div>
     </div>
 

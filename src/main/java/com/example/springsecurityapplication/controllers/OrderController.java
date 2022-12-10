@@ -41,7 +41,7 @@ public class OrderController {
 
     @PostMapping("/editOrder/{id}")
     public String editOrder(@ModelAttribute("order") Order order) {
-        orderService.statusUpdate(order);
-        return "redirect:/order/editOrder";
+        orderService.save(order);
+        return "redirect:/order/orderManagement";
     }
 }

@@ -121,7 +121,13 @@
 
 <form th:method="POST" th:action="@{/order/editOrder/{id}(id=${order.getId()})}" th:object="${order}">
 
-    <input type="hidden"  th:field="*{id}" placeholder="id" name="id" id="id">
+    <input type="hidden"  th:field="*{id}"  name="id" id="id">
+    <input type="hidden"  th:field="*{number}"  name="number" id="number">
+    <input type="hidden"  th:field="*{count}"  name="count" id="count">
+    <input type="hidden"  th:field="*{price}"  name="price" id="price">
+    <input type="hidden"  th:field="*{dateTime}"  name="dateTime" id="dateTime">
+    <input type="hidden"  th:field="*{product}"  name="product" id="product">
+    <input type="hidden"  th:field="*{person}"  name="person" id="person">
 
     <table style="border-color: #2c3034; padding-left:20px; margin-left: 15px">
 

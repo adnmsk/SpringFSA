@@ -5,6 +5,7 @@ import com.example.springsecurityapplication.models.Person;
 import com.example.springsecurityapplication.models.Product;
 import com.example.springsecurityapplication.repositories.CategoryRepository;
 import com.example.springsecurityapplication.security.PersonDetails;
+import com.example.springsecurityapplication.services.ImageService;
 import com.example.springsecurityapplication.services.PersonService;
 import com.example.springsecurityapplication.services.ProductService;
 import com.example.springsecurityapplication.util.PersonValidator;
@@ -38,14 +39,17 @@ public class AdminController {
 
     private final PersonService personService;
 
+    private final ImageService imageService;
+
     private final CategoryRepository categoryRepository;
 
     @Autowired
-    public AdminController(ProductValidator productValidator, ProductService productService, PersonService personService, CategoryRepository categoryRepository, PersonValidator personValidator, PasswordEncoder passwordEncoder) {
+    public AdminController(ProductValidator productValidator, ProductService productService, PersonService personService, CategoryRepository categoryRepository, PersonValidator personValidator, PasswordEncoder passwordEncoder, ImageService imageService) {
         this.productValidator = productValidator;
         this.productService = productService;
         this.personService = personService;
         this.categoryRepository = categoryRepository;
+        this.imageService = imageService;
     }
 
     //    @PreAuthorize("hasRole('ROLE_ADMIN') and hasRole('')")
@@ -73,6 +77,131 @@ public class AdminController {
         model.addAttribute("category", categoryRepository.findAll());
 //        System.out.println(categoryRepository.findAll().size());
         return "product/addProduct";
+    }
+
+    @PostMapping("/product/edit")
+    public String editProduct(@ModelAttribute("editProduct") @Valid Product product, BindingResult bindingResult,
+                              @RequestParam("file1") MultipartFile file1,
+                              @RequestParam("file2") MultipartFile file2,
+                              @RequestParam("file3") MultipartFile file3,
+                              @RequestParam("file4") MultipartFile file4,
+                              @RequestParam("file5") MultipartFile file5) throws IOException {
+
+        if(bindingResult.hasErrors()){
+            return "product/editProduct";
+        }
+        // Проверка на пустоту файла
+        if(file1 != null && !file1.getOriginalFilename().isEmpty()){
+            // Дирректория по сохранению файла
+            File uploadDir = new File(uploadPath);
+            // Если данной дирректории по пути не сущетсвует
+            if(!uploadDir.exists()){
+                // Создаем данную дирректорию
+                uploadDir.mkdir();
+            }
+            // Создаем уникальное имя файла
+            // UUID представляет неищменный универсальный уникальный идентификатор
+            String uuidFile = UUID.randomUUID().toString();
+            // file_one.getOriginalFilename() - наименование файла с формы
+            String resultFileName = uuidFile + "." + file1.getOriginalFilename();
+            // Загружаем файл по указаннопу пути
+            file1.transferTo(new File(uploadPath + "/" + resultFileName));
+            Image image = product.getImageList().get(0);
+            image.setProduct(product);
+            image.setFileName(resultFileName);
+            imageService.save(image);
+        }
+
+        // Проверка на пустоту файла
+        if(file2 != null && !file2.getOriginalFilename().isEmpty()){
+            // Дирректория по сохранению файла
+            File uploadDir = new File(uploadPath);
+            // Если данной дирректории по пути не сущетсвует
+            if(!uploadDir.exists()){
+                // Создаем данную дирректорию
+                uploadDir.mkdir();
+            }
+            // Создаем уникальное имя файла
+            // UUID представляет неищменный универсальный уникальный идентификатор
+            String uuidFile = UUID.randomUUID().toString();
+            // file_one.getOriginalFilename() - наименование файла с формы
+            String resultFileName = uuidFile + "." + file2.getOriginalFilename();
+            // Загружаем файл по указаннопу пути
+            file2.transferTo(new File(uploadPath + "/" + resultFileName));
+            Image image = product.getImageList().get(1);
+            image.setProduct(product);
+            image.setFileName(resultFileName);
+            imageService.save(image);
+        }
+
+        // Проверка на пустоту файла
+        if(file3 != null && !file3.getOriginalFilename().isEmpty()){
+            // Дирректория по сохранению файла
+            File uploadDir = new File(uploadPath);
+            // Если данной дирректории по пути не сущетсвует
+            if(!uploadDir.exists()){
+                // Создаем данную дирректорию
+                uploadDir.mkdir();
+            }
+            // Создаем уникальное имя файла
+            // UUID представляет неищменный универсальный уникальный идентификатор
+            String uuidFile = UUID.randomUUID().toString();
+            // file_one.getOriginalFilename() - наименование файла с формы
+            String resultFileName = uuidFile + "." + file3.getOriginalFilename();
+            // Загружаем файл по указаннопу пути
+            file3.transferTo(new File(uploadPath + "/" + resultFileName));
+            Image image = product.getImageList().get(2);
+            image.setProduct(product);
+            image.setFileName(resultFileName);
+            imageService.save(image);
+        }
+
+        // Проверка на пустоту файла
+        if(file4 != null && !file4.getOriginalFilename().isEmpty()){
+            // Дирректория по сохранению файла
+            File uploadDir = new File(uploadPath);
+            // Если данной дирректории по пути не сущетсвует
+            if(!uploadDir.exists()){
+                // Создаем данную дирректорию
+                uploadDir.mkdir();
+            }
+            // Создаем уникальное имя файла
+            // UUID представляет неищменный универсальный уникальный идентификатор
+            String uuidFile = UUID.randomUUID().toString();
+            // file_one.getOriginalFilename() - наименование файла с формы
+            String resultFileName = uuidFile + "." + file4.getOriginalFilename();
+            // Загружаем файл по указаннопу пути
+            file4.transferTo(new File(uploadPath + "/" + resultFileName));
+            Image image = product.getImageList().get(3);
+            image.setProduct(product);
+            image.setFileName(resultFileName);
+            imageService.save(image);
+        }
+
+        // Проверка на пустоту файла
+        if(file5 != null && !file5.getOriginalFilename().isEmpty()) {
+            // Дирректория по сохранению файла
+            File uploadDir = new File(uploadPath);
+            // Если данной дирректории по пути не сущетсвует
+            if(!uploadDir.exists()){
+                // Создаем данную дирректорию
+                uploadDir.mkdir();
+            }
+            // Создаем уникальное имя файла
+            // UUID представляет неищменный универсальный уникальный идентификатор
+            String uuidFile = UUID.randomUUID().toString();
+            // file_one.getOriginalFilename() - наименование файла с формы
+            String resultFileName = uuidFile + "." + file5.getOriginalFilename();
+            // Загружаем файл по указаннопу пути
+            file5.transferTo(new File(uploadPath + "/" + resultFileName));
+            Image image = product.getImageList().get(4);
+            image.setProduct(product);
+            image.setFileName(resultFileName);
+            imageService.save(image);
+        }
+
+        productService.saveProduct(product);
+        return "redirect:/admin";
     }
 
     // Метод по добавлению объекта с формы в таблицу product
@@ -215,17 +344,6 @@ public class AdminController {
         model.addAttribute("editProduct", productService.getProductId(id));
         model.addAttribute("category", categoryRepository.findAll());
         return "product/editProduct";
-    }
-
-    @PostMapping("/product/edit/{id}")
-    public String editProduct(@ModelAttribute("editProduct") Product product, @PathVariable("id") int id,
-                              @PathVariable("file1") MultipartFile file1,
-                              @PathVariable("file2") MultipartFile file2,
-                              @PathVariable("file3") MultipartFile file3,
-                              @PathVariable("file4") MultipartFile file4,
-                              @PathVariable("file5") MultipartFile file5){
-        productService.updateProduct(id, product);
-        return "redirect:/admin";
     }
 
     //Методы по управлению пользователями

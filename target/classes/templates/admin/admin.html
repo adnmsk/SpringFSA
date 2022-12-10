@@ -1,29 +1,149 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Админ панель</title>
-</head>
+
+
+    <html lang="en" xmlns:th="http://www.thymeleaf.org"></html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+        <meta name="generator" content="Hugo 0.104.2">
+        <title>Кабинет администратора</title>
+
+        <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/product/">
+
+
+
+
+
+        <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+        <style>
+            .bd-placeholder-img {
+                font-size: 1.125rem;
+                text-anchor: middle;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                user-select: none;
+            }
+
+            @media (min-width: 768px) {
+                .bd-placeholder-img-lg {
+                    font-size: 3.5rem;
+                }
+            }
+
+            .b-example-divider {
+                height: 3rem;
+                background-color: rgba(0, 0, 0, .1);
+                border: solid rgba(0, 0, 0, .15);
+                border-width: 1px 0;
+                box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+            }
+
+            .b-example-vr {
+                flex-shrink: 0;
+                width: 1.5rem;
+                height: 100vh;
+            }
+
+            .bi {
+                vertical-align: -.125em;
+                fill: currentColor;
+            }
+
+            .nav-scroller {
+                position: relative;
+                z-index: 2;
+                height: 2.75rem;
+                overflow-y: hidden;
+            }
+
+            .nav-scroller .nav {
+                display: flex;
+                flex-wrap: nowrap;
+                padding-bottom: 1rem;
+                margin-top: -1px;
+                overflow-x: auto;
+                text-align: center;
+                white-space: nowrap;
+                -webkit-overflow-scrolling: touch;
+            }
+        </style>
+
+
+        <!-- Custom styles for this template -->
+        <link href="/css/product.css" rel="stylesheet">
+    </head>
 <body>
-<h3>Личный кабинет администратора</h3>
-<a href="/admin/userManagement">Управление пользователями</a>
-<form th:method="POST" th:action="@{/logout}">
-    <input type="submit" value="Выйти из личного кабинета">
-</form>
+
+<header class="site-header sticky-top py-1">
+    <nav class="container d-flex flex-column flex-md-row justify-content-between">
+        <a class="py-2" href="#" aria-label="Product">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="d-block mx-auto" role="img" viewBox="0 0 24 24"><title>Магазин "Рифф"</title><circle cx="12" cy="12" r="10"/><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"/></svg>
+        </a>
+        <a class="py-2 d-none d-md-inline-block" href="/product">Гитарный магазин "Рифф"</a>
+        <a class="py-2 d-none d-md-inline-block" href="/order/orderManagement">Заказы</a>
+        <a class="py-2 d-none d-md-inline-block" href="/admin">Управление товарами</a>
+        <a class="py-2 d-none d-md-inline-block" href="/admin/userManagement">Управление пользователями</a>
+        <!--        <a class="py-2 d-none d-md-inline-block" href="logout">Выход</a>-->
+        <form class="py-2 d-none d-md-inline-block" th:method="POST" th:action="@{/logout}">
+            <input type="submit" value="Выход">
+        </form>
+
+    </nav>
+</header>
+
+
+<body>
+
+<!--<a href="/admin/userManagement">Управление пользователями</a>-->
+<!--<br>-->
+<!--<a href="/orders/orderManagement">Управление Заказами</a>-->
+<!--<form th:method="POST" th:action="@{/logout}">-->
+<!--    <input type="submit" value="Выйти из личного кабинета">-->
+<!--</form>-->
+
+<div style="text-align: center; font-size: 16px; font-weight: bold">
 <a href="/admin/product/add">Добавить товар</a>
-<h3>Каталог товаров: </h3>
+</div>
+<h3 style="margin-left: 30px">Каталог товаров в магазине: </h3>
 <hr>
-<div th:each="product : ${products}">
-    <img th:src="'/img/' + ${product.imageList[0].getFileName()}" width="300px">
-    <p th:text="'Наименование: ' + ${product.getTitle()}"></p>
-    <p th:text="'Описание: ' + ${product.getDescription()}"></p>
-    <p th:text="'Цена: ' + ${product.getPrice()}"></p>
-    <p th:text="'Склад: ' + ${product.getWarehouse()}"></p>
-    <p th:text="'Продавец: ' + ${product.getSeller()}"></p>
-    <p th:text="'Категория товара: ' + ${product.getCategory().getName()}"></p>
-    <a th:href="@{/admin/product/edit/{id}(id=${product.getId()})}">Редактировать товар</a>
-    <a th:href="@{/admin/product/delete/{id}(id=${product.getId()})}">Удалить товар</a>
-    <hr>
+<style>table th, table td {border:solid; padding: 5px 5px;} border solid</style>
+<table style="border-color: #2c3034; padding-left:20px; margin-left: 15px">
+
+
+    <tr>
+        <th>Изображение</th>
+        <th>Название</th>
+        <th>Описание</th>
+        <th>Цена</th>
+        <th>Склад</th>
+        <th>Продавец</th>
+        <th>Категория</th>
+        <th>Правка</th>
+        <th>Удалить</th>
+
+       </tr>
+    <tr th:each="product : ${products}">
+        <td><img th:src="'/img/' + ${product.imageList[0].getFileName()}" style=" max-width: 100px"></td>
+        <td th:text="${product.getTitle()}"></td>
+        <td><textarea style="width:230px; max-height: 300px" th:text="${product.getDescription()}"></textarea></td>
+        <td th:text="${product.getPrice()}"></td>
+        <td th:text="${product.getWarehouse()}"></td>
+        <td th:text="${product.getSeller()}"></td>
+        <td th:text="${product.getCategory().getName()}"></td>
+        <td><a th:href="@{/admin/product/edit/{id}(id=${product.getId()})}">Редактировать товар</a></td>
+        <td><a th:href="@{/admin/product/delete/{id}(id=${product.getId()})}">Удалить товар</a></td>
+    </tr>
+</table>
+<div style="text-align: center; margin:10px 5px">
+    <a href="/admin/product/add">Добавить товар</a>
+</div>
+
 
 
 </div>

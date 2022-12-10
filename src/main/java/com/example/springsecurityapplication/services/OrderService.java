@@ -31,10 +31,10 @@ public class OrderService {
         orderRepository.save(order);
     }
 
-    public void statusUpdate(Order order) {
-
-//        return: @Query("update Order o set o.status = ?1 where o.status = ?2")
-    }
+//    public void statusUpdate(Order order) {
+//
+////        return: @Query("update Order o set o.status = ?1 where o.status = ?2")
+//    }
 
     public Order findById(int id) {
         return orderRepository.findById(id);

@@ -1,27 +1,17 @@
 package com.example.springsecurityapplication.config;
 
 //import com.example.springsecurityapplication.security.AuthenticationProvider;
+
 import com.example.springsecurityapplication.services.PersonDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.firewall.DefaultHttpFirewall;
-import org.springframework.security.web.firewall.HttpFirewall;
-import org.springframework.security.web.firewall.StrictHttpFirewall;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 // Основной конфиг для конфигурации безопасности в приложении
 @EnableWebSecurity
@@ -63,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // Указываем что /admin доступен пользователю с ролью администратора
                 .antMatchers("/admin", "/admin/userManagement", "/order/orderManagement","/order/editOrder").hasAnyRole(
                         "ADMIN")
-                .antMatchers("/index", "/user/cart", "/user/findProduct").hasAnyRole(
+                .antMatchers( "/user/cart", "/user/findProduct").hasAnyRole(
                         "USER")
 //                .antMatchers("/user").hasAnyRole("USER")
                 // Указываем что не аутентифицированные пользователи могут заходить на страницу с формой аутентификации и на объект ошибки
@@ -86,7 +76,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/index", true)
                 // Указываем куда необходимо перенаправить пользователя при проваленной аутентификации
                 // В url будет передан объект. Данный объект мы будем проверять на форме и если он есть будет выводить сообщение "Неправильный логин или пароль"
-                .failureUrl("/auth/login")
+                .failureUrl("/auth/login?error=wrong")
                 // Значение по умолчанию"/auth/login"
                 .and()
                 // Указываем что при переходе на /logout будет очищена сессия пользовате и перенаправление на /auth/login

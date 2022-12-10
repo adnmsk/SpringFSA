@@ -38,6 +38,7 @@ public class Product {
     private String seller;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
+    @OrderBy("id ASC")
     private List<Image> imageList = new ArrayList<>();
 
     @ManyToOne(optional = false)
