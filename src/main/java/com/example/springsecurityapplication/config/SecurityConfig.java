@@ -81,7 +81,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 // Указываем что при переходе на /logout будет очищена сессия пользовате и перенаправление на /auth/login
                 .logout().logoutUrl("/logout").logoutSuccessUrl("/auth/login");
-        // Значение по умолчанию"/auth/login"
+                // Значение по умолчанию"/auth/login"
 
     }
 
