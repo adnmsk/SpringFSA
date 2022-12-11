@@ -129,7 +129,8 @@
             <td><p th:text="${order.getStatus()}"></p></td>
             <td><p th:text="${order.getProduct().getTitle()}"></p></td>
             <td><p th:text="${order.getPrice()}"></p></td>
-            <td><p th:text="${order.getPerson()}"></p></td>
+            <td><p th:text="${order.getPerson().getLogin()}"></p></td>
+            
             <td>
                 <label for="status">Выберите актуальный статус: </label>
 
