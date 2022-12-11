@@ -121,6 +121,7 @@
             <th>Товар</th>
             <th>Цена</th>
             <th>Заказчик</th>
+            <th>Дата создания</th>
             <th>Сменить статус</th>
 
         </tr>
@@ -129,8 +130,9 @@
             <td><p th:text="${order.getStatus()}"></p></td>
             <td><p th:text="${order.getProduct().getTitle()}"></p></td>
             <td><p th:text="${order.getPrice()}"></p></td>
+            <td><p th:text="${order.getPrice()}"></p></td>
             <td><p th:text="${order.getPerson().getLogin()}"></p></td>
-            
+            <td th:text=" ${#temporals.format(order.getDateTime(), 'dd-MMM-yyyy')}">Дата</td>
             <td>
                 <label for="status">Выберите актуальный статус: </label>
 

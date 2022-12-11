@@ -107,6 +107,7 @@
             <th>Номер</th>
             <th>Текущий статус</th>
             <th>Товар</th>
+            <th>Дата создания</th>
             <th>Цена</th>
             <th>Заказчик</th>
             <th>Сменить статус</th>
@@ -116,6 +117,7 @@
             <td th:utext="${order.getId()}">id</td>
             <td th:utext="${order.getStatus()}">Статус</td>
             <td th:utext="${order.getProduct().getTitle()}">Товар</td>
+            <td th:text=" ${#temporals.format(order.getDateTime(), 'dd-MMM-yyyy')}">Дата</td>
             <td th:utext="${order.getPrice()}">Цена</td>
             <td th:utext="${order.getPerson().getLogin()}"></td>
             <th><a th:href="@{/order/editOrder/{id}(id=${order.getId()})}">Редактировать</a></th>
